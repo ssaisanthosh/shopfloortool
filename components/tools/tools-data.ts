@@ -26,7 +26,7 @@ export const tools: Tool[] = [
     id: "1",
     slug: "json-formatter",
     name: "JSON Formatter",
-    description: "Format and validate JSON data with syntax highlighting",
+    description: "Format and validate JSON data with syntax highlightingFormat and validate JSON data with syntax highlighting",
     category: "Development",
     icon: "Code",
     usedCount: 1250,

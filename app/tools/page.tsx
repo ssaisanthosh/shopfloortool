@@ -17,6 +17,9 @@ import {
   Edit,
   CheckSquare,
   Link2,
+  List,
+  Minimize2,
+  Grid,
 } from "lucide-react";
 
 interface CategoryItem {
@@ -36,6 +39,7 @@ const categoryIcons: Record<string, React.ComponentType<{ className?: string }>>
 export default function ToolsPage() {
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("All");
+  const [gridLayout, setGridLayout] = useState<"1" | "2" | "3">("3");
 
   const filteredTools = useMemo(() => {
     let result = getToolsByCategory(selectedCategory);
@@ -117,11 +121,36 @@ export default function ToolsPage() {
 
           {/* Main: Tools Grid */}
           <section className="lg:col-span-9">
-            <div className="flex items-center justify-between mb-6">
-              <h2 className="text-lg font-semibold">
-                {filteredTools.length} {filteredTools.length === 1 ? "tool" : "tools"}
-              </h2>
-              <Badge variant="outline">{selectedCategory}</Badge>
+            <div className="flex items-center justify-between gap-4 mb-6">
+              <div className="flex items-center gap-2">
+                <h2 className="text-lg font-semibold">
+                  {filteredTools.length} {filteredTools.length === 1 ? "tool" : "tools"}
+                </h2>
+                <Badge variant="outline">{selectedCategory}</Badge>
+              </div>
+              <div className="flex items-center gap-1">
+                {["1", "2", "3"].map((cols) => (
+                  <button
+                    key={cols}
+                    onClick={() => setGridLayout(cols as "1" | "2" | "3")}
+                    aria-label={`Grid ${cols}x1`}
+                    className={cn(
+                      "p-1.5 rounded-md transition-colors",
+                      gridLayout === cols
+                        ? "bg-primary text-primary-foreground"
+                        : "text-muted-foreground hover:bg-muted",
+                    )}
+                  >
+                    {cols === "1" ? (
+                      <List className="h-4 w-4" />
+                    ) : cols === "2" ? (
+                      <Minimize2 className="h-4 w-4" />
+                    ) : (
+                      <Grid className="h-4 w-4" />
+                    )}
+                  </button>
+                ))}
+              </div>
             </div>
 
             {filteredTools.length === 0 ? (
@@ -135,7 +164,14 @@ export default function ToolsPage() {
                 </p>
               </div>
             ) : (
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+              <div
+                className={cn(
+                  "grid gap-6",
+                  gridLayout === "1" && "grid-cols-1",
+                  gridLayout === "2" && "grid-cols-1 sm:grid-cols-2 lg:grid-cols-2",
+                  gridLayout === "3" && "grid-cols-1 sm:grid-cols-2 lg:grid-cols-3",
+                )}
+              >
                 {filteredTools.map((tool) => (
                   <ToolCard key={tool.id} tool={tool} />
                 ))}

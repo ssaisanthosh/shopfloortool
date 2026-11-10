@@ -19,20 +19,23 @@ export function ToolCard({ tool }: ToolCardProps) {
     <Link href={`/tools/${tool.slug}`} className="group block">
       <Card
         className={cn(
-          "w-72 h-80 hover:border-primary/50 transition-all cursor-pointer",
+          "w-72 h-55 hover:border-primary/50 transition-all cursor-pointer",
         )}
       >
         <CardHeader className="pb-3">
-          <div className="flex items-center justify-between mb-3">
+          <div className="flex items-center justify-between mb-2">
             <div className="flex items-center gap-2">
               <div className="flex h-8 w-8 items-center justify-center rounded-md bg-primary/10 text-primary">
                 {IconComponent}
               </div>
               <CardTitle className="text-base">{tool.name}</CardTitle>
-            </div>
-            <Badge variant="category">{tool.category}</Badge>
+            </div>           
           </div>
-          <p className="text-sm text-muted-foreground line-clamp-2">
+          <div className="mb-2">
+             <Badge variant="category">{tool.category}</Badge>
+          </div>
+          
+          <p className="text-sm text-muted-foreground line-clamp-3">
             {tool.description}
           </p>
         </CardHeader>
