@@ -20,6 +20,9 @@ import {
   List,
   Minimize2,
   Grid,
+  SortDown,
+  LetterAZ,
+  TrendingUp,
 } from "lucide-react";
 
 interface CategoryItem {
@@ -40,6 +43,8 @@ export default function ToolsPage() {
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("All");
   const [gridLayout, setGridLayout] = useState<"1" | "2" | "3">("3");
+  const [sortBy, setSortBy] = useState<"name" | "usedCount">("name");
+  const [showSortOptions, setShowSortOptions] = useState(false);
 
   const filteredTools = useMemo(() => {
     let result = getToolsByCategory(selectedCategory);
@@ -52,8 +57,15 @@ export default function ToolsPage() {
           tool.category.toLowerCase().includes(query),
       );
     }
+    // Sort by the selected option
+    result.sort((a, b) => {
+      if (sortBy === "name") {
+        return a.name.localeCompare(b.name);
+      }
+      return b.usedCount - a.usedCount;
+    });
     return result;
-  }, [searchQuery, selectedCategory]);
+  }, [searchQuery, selectedCategory, sortBy]);
 
   const categoryCounts = useMemo(() => {
     const counts: Record<string, number> = { All: tools.length };

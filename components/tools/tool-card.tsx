@@ -1,48 +1,88 @@
-"use client";
+"use client"
 
-import Link from "next/link";
-import { Badge } from "@/components/ui/badge";
-import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
-import { cn } from "@/lib/utils";
-import { Tool } from "@/components/tools/tools-data";
-import { LucideProps } from "lucide-react";
-import { createElement } from "react";
+import Link from "next/link"
+import { Badge } from "@/components/ui/badge"
+import {
+  Card,
+  CardContent,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card"
+import { cn } from "@/lib/utils"
+import { Tool } from "@/components/tools/tools-data"
+import {
+  Shield,
+  CheckSquare,
+  Code,
+  Edit,
+  Eye,
+  Flame,
+  Image,
+  Link2,
+  Ruler,
+  Play,
+  type LucideIcon,
+} from "lucide-react"
 
 interface ToolCardProps {
-  tool: Tool;
+  tool: Tool
+}
+
+// Map icon names from tools-data to lucide-react components
+const iconMap: Record<string, LucideIcon> = {
+  Eye,
+  Shield,
+  CheckSquare,
+  Code,
+  Edit,
+  Flame,
+  Image,
+  Link2,
+  Ruler,
 }
 
 export function ToolCard({ tool }: ToolCardProps) {
-  const IconComponent = createElement(tool.icon as any);
+  const IconComponent = iconMap[tool.icon] || Eye
 
   return (
     <Link href={`/tools/${tool.slug}`} className="group block">
       <Card
         className={cn(
-          "w-72 h-55 hover:border-primary/50 transition-all cursor-pointer",
+          "relative w-full cursor-pointer transition-all hover:border-primary/50"
         )}
       >
-        <CardHeader className="pb-3">
-          <div className="flex items-center justify-between mb-2">
+        {tool.new && (
+          <Badge
+            variant="new"
+            className="absolute top-2 right-2 z-10 flex items-center gap-1"
+          >
+            <Flame className="h-5 w-5" />
+          </Badge>
+        )}
+
+        <CardHeader className="pt-6 pb-3">
+          <div className="mb-2 flex items-center justify-between">
             <div className="flex items-center gap-2">
               <div className="flex h-8 w-8 items-center justify-center rounded-md bg-primary/10 text-primary">
-                {IconComponent}
+                <IconComponent className="h-5 w-5" />
               </div>
               <CardTitle className="text-base">{tool.name}</CardTitle>
-            </div>           
+            </div>
           </div>
           <div className="mb-2">
-             <Badge variant="category">{tool.category}</Badge>
+            <Badge variant="category">{tool.category}</Badge>
           </div>
-          
-          <p className="text-sm text-muted-foreground line-clamp-3">
+
+          <p className="line-clamp-2 text-sm text-muted-foreground">
             {tool.description}
           </p>
         </CardHeader>
         <CardFooter>
-          <Badge variant="count">{tool.usedCount} uses</Badge>
+          <Badge variant="count">{tool.usedCount} uses</Badge>{" "}
+          <Play className="absolute right-4 bottom-4 z-10 flex h-5 w-5 items-center gap-1" />
         </CardFooter>
       </Card>
     </Link>
-  );
+  )
 }

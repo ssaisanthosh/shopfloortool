@@ -6,6 +6,8 @@ export interface Tool {
   category: string;
   icon: string;
   usedCount: number;
+  new?: boolean;
+  order?: number;
 }
 
 export interface Category {
@@ -30,6 +32,7 @@ export const tools: Tool[] = [
     category: "Development",
     icon: "Code",
     usedCount: 1250,
+    new: true,
   },
   {
     id: "2",
@@ -39,6 +42,7 @@ export const tools: Tool[] = [
     category: "Design",
     icon: "Eyedropper",
     usedCount: 890,
+    new: false
   },
   {
     id: "3",
@@ -48,6 +52,7 @@ export const tools: Tool[] = [
     category: "Utilities",
     icon: "Ruler",
     usedCount: 640,
+    new: true,
   },
   {
     id: "4",
@@ -57,7 +62,7 @@ export const tools: Tool[] = [
     category: "Security",
     icon: "Shield",
     usedCount: 420,
-  },
+    order: 5,},
   {
     id: "5",
     slug: "image-compressor",
