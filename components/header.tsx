@@ -22,7 +22,6 @@ interface NavItem {
   href: string;
   icon: React.ComponentType<{ className?: string }>;
 }
-
 const navItems: NavItem[] = [
   { label: "Dashboard", href: "/", icon: LayoutDashboard },
   { label: "Tools", href: "/tools", icon: Wrench },
@@ -130,36 +129,6 @@ export function Header() {
                 {item.label}
               </Link>
             ))}
-            <div className="my-2 border-t" />
-            <div className="flex flex-col gap-1 border-t">
-              <Button
-                variant="ghost"
-                size="sm"
-                className="w-full justify-center gap-2"
-                onClick={() => setTheme("light")}
-              >
-                <Sun className="h-4 w-4" />
-                Light
-              </Button>
-              <Button
-                variant="ghost"
-                size="sm"
-                className="w-full justify-center gap-2"
-                onClick={() => setTheme("dark")}
-              >
-                <Moon className="h-4 w-4" />
-                Dark
-              </Button>
-              <Button
-                variant="ghost"
-                size="sm"
-                className="w-full justify-center gap-2"
-                onClick={() => setTheme("system")}
-              >
-                <Monitor className="h-4 w-4" />
-                System
-              </Button>
-            </div>
           </nav>
         </div>
       )}
