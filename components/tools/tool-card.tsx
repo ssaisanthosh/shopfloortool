@@ -54,7 +54,7 @@ export function ToolCard({ tool }: ToolCardProps) {
       >
         {tool.new && (
           <Badge
-            variant="new"
+            variant="default"
             className="absolute top-2 right-2 z-10 flex items-center gap-1"
           >
             <Flame className="h-5 w-5" />
@@ -71,7 +71,7 @@ export function ToolCard({ tool }: ToolCardProps) {
             </div>
           </div>
           <div className="mb-2">
-            <Badge variant="category">{tool.category}</Badge>
+            <Badge variant="secondary">{tool.category}</Badge>
           </div>
 
           <p className="line-clamp-2 text-sm text-muted-foreground">
@@ -79,8 +79,8 @@ export function ToolCard({ tool }: ToolCardProps) {
           </p>
         </CardHeader>
         <CardFooter>
-          <Badge variant="count">{tool.usedCount} uses</Badge>{" "}
-          <Play className="absolute right-4 bottom-4 z-10 flex h-5 w-5 items-center gap-1" />
+          <Badge variant="default">{tool.usedCount} uses</Badge>{" "}
+          <Play className="absolute right-4 bottom-4 z-10 flex h-3 w-3 items-center gap-1" />
         </CardFooter>
       </Card>
     </Link>

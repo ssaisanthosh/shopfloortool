@@ -11,6 +11,7 @@ import {
   Shield,
   GlobeBanIcon,
   Lock,
+  ArrowLeft,
 } from "lucide-react"
 import { BookmarkButton } from "@/components/ui/bookmark-button"
 import dynamic from "next/dynamic"
@@ -72,7 +73,7 @@ export default async function ToolPage({
           href="/tools"
           className="mb-6 inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground"
         >
-          <Settings className="h-4 w-4" />
+          <ArrowLeft className="h-4 w-4" />
           Back to all tools
         </Link>
 
