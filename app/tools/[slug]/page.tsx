@@ -12,6 +12,7 @@ import {
   GlobeBanIcon,
   Lock,
   ArrowLeft,
+  Share,
 } from "lucide-react"
 import { BookmarkButton } from "@/components/ui/bookmark-button"
 import dynamic from "next/dynamic"
@@ -21,6 +22,7 @@ import {
   TooltipContent,
   TooltipTrigger,
 } from "@/components/ui/tooltip"
+import { Button } from "@/components/ui/button"
 
 const categoryIcons: Record<
   string,
@@ -71,20 +73,28 @@ export default async function ToolPage({
   return (
     <div className="min-h-screen bg-background py-8">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        {/* Back link */}
-        <Link
-          href="/tools"
-          className="mb-6 inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground"
-        >
-          <ArrowLeft className="h-4 w-4" />
-          Back to all tools
-        </Link>
-
         <div className="grid grid-cols-1 gap-8 lg:grid-cols-12">
           {/* Tool Detail */}
           <div className="lg:col-span-9">
             <div className="flex flex-col gap-6 lg:flex-row">
               <div className="relative w-full">
+                <div className="mb-6 flex items-center gap-4">
+                  {/* Back link */}
+                  <Link
+                    href="/tools"
+                    className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground"
+                  >
+                    <ArrowLeft className="h-4 w-4" />
+                    Back to all tools
+                  </Link>
+                  {/* Back link */}
+                  <Button variant="outline" className="ml-auto">
+                    {" "}
+                    <Share></Share>Share
+                  </Button>
+                  <BookmarkButton toolId={tool.id} className="" />
+                </div>
+
                 <div className="flex items-start">
                   <div>
                     <div className="flex items-center gap-2">
@@ -107,8 +117,6 @@ export default async function ToolPage({
                             </p>
                           </TooltipContent>
                         </Tooltip>
-
-                        <BookmarkButton toolId={tool.id} className="" />
                       </div>
                     </div>
 
