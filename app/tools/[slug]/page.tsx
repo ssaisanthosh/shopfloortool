@@ -38,6 +38,9 @@ const toolComponents: Record<string, ComponentType> = {
   "json-formatter": dynamic(() =>
     import("@/components/tools/json-formatter").then((mod) => mod.JsonFormatter)
   ),
+  "base64-tool": dynamic(() =>
+    import("@/components/tools/base64-tool").then((mod) => mod.Base64Tool)
+  ),
 }
 
 export function generateStaticParams() {
@@ -80,40 +83,44 @@ export default async function ToolPage({
         <div className="grid grid-cols-1 gap-8 lg:grid-cols-12">
           {/* Tool Detail */}
           <div className="lg:col-span-9">
-            <div className="mb-8 flex flex-col gap-6 lg:flex-row">
+            <div className="flex flex-col gap-6 lg:flex-row">
               <div className="relative w-full">
                 <div className="flex items-start">
                   <div>
-                    <h1 className="text-2xl font-bold tracking-tight">
-                      {tool.name}
-                    </h1>
+                    <div className="flex items-center gap-2">
+                      <h1 className="text-2xl font-bold tracking-tight">
+                        {tool.name}
+                      </h1>
+                      <div className="ml-auto flex items-center gap-2">
+                        <Tooltip>
+                          <TooltipTrigger>
+                            <span className="inline-flex w-35 items-center gap-1 rounded-full border border-green-500/30 bg-green-500/10 px-3 py-1 text-xs font-medium text-green-600">
+                              <GlobeBanIcon size={14} className="mr-1" />{" "}
+                              browser-based
+                            </span>
+                          </TooltipTrigger>
+                          <TooltipContent>
+                            <p>
+                              {" "}
+                              The tool is browser-based and does not save/send
+                              any data to server or cloud storage.
+                            </p>
+                          </TooltipContent>
+                        </Tooltip>
+
+                        <BookmarkButton toolId={tool.id} className="" />
+                      </div>
+                    </div>
+
                     <p className="mt-1 w-full text-sm text-muted-foreground">
                       {tool.description}
                     </p>
-                  </div>
-                  <div className="ml-auto flex items-center gap-2">
-                    <Tooltip>
-                      <TooltipTrigger>
-                        <span className=" inline-flex items-center gap-1 rounded-full border px-3 py-1 text-xs font-medium bg-green-500/10 text-green-600 border-green-500/30">
-                          <GlobeBanIcon size={14} className="mr-1" /> browser-based
-                        </span>
-                      </TooltipTrigger>
-                      <TooltipContent>
-                        <p>
-                          {" "}
-                          The tool is browser-based and does not save/send any
-                          data to server or cloud storage.
-                        </p>
-                      </TooltipContent>
-                    </Tooltip>
-
-                    <BookmarkButton toolId={tool.id} className="" />
                   </div>
                 </div>
               </div>
             </div>
 
-            <div className="mt-6">
+            <div className="mt-4">
               <Suspense
                 fallback={
                   <Card>

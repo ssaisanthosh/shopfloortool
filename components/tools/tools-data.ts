@@ -25,6 +25,15 @@ export const categories: Category[] = [
 
 export const tools: Tool[] = [
   {
+    id: "0",
+    slug: "base64-tool",
+    name: "Base64",
+    description: "A Base64 encode/decode tool converts text or files into Base64 strings and back, instantly in your browser. It supports URL-safe mode, copy and download, and keeps your data private.",
+    category: "Development",
+    icon: "Code",
+    usedCount: 1250,
+    new: true,
+  },{
     id: "1",
     slug: "json-formatter",
     name: "JSON Formatter",
