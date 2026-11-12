@@ -3,8 +3,10 @@ import { getToolBySlug, tools } from "@/components/tools/tools-data"
 import { notFound } from "next/navigation"
 import { Badge } from "@/components/ui/badge"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { Settings, Activity, Palette, Layout, Shield, Code } from "lucide-react"
+import { Settings, Activity, Palette, Layout, Shield } from "lucide-react"
 import { BookmarkButton } from "@/components/ui/bookmark-button"
+import dynamic from "next/dynamic"
+import { type ComponentType, Suspense } from "react"
 
 const categoryIcons: Record<
   string,
@@ -15,6 +17,15 @@ const categoryIcons: Record<
   Productivity: Activity,
   Utilities: Layout,
   Security: Shield,
+}
+
+// Map slugs to their respective dynamic components
+const toolComponents: Record<string, ComponentType> = {
+  "json-formatter": dynamic(() => import("@/components/tools/json-formatter").then((mod) => mod.JsonFormatter)),
+}
+
+export function generateStaticParams() {
+  return Object.keys(toolComponents).map((slug) => ({ slug }))
 }
 
 export default async function ToolPage({
@@ -32,6 +43,11 @@ export default async function ToolPage({
   }
 
   const Icon = categoryIcons[tool.category] || Settings
+  const ToolComponent = toolComponents[slug]
+
+  if (!ToolComponent) {
+    notFound()
+  }
 
   return (
     <div className="min-h-screen bg-background py-8">
@@ -67,33 +83,22 @@ export default async function ToolPage({
               </div>
             </div>
 
-            <Card className="mt-6">
-              <CardHeader>
-                <CardTitle>Tool Details</CardTitle>
-              </CardHeader>
-              <CardContent className="grid grid-cols-1 gap-4 md:grid-cols-2">
-                <div className="flex items-center gap-3">
-                  <span className="text-sm text-muted-foreground">
-                    Category
-                  </span>
-                  <span className="font-medium">{tool.category}</span>
-                </div>
-                <div className="flex items-center gap-3">
-                  <span className="text-sm text-muted-foreground">
-                    Times Used
-                  </span>
-                  <span className="font-medium">{tool.usedCount}</span>
-                </div>
-                <div className="flex items-center gap-3">
-                  <span className="text-sm text-muted-foreground">Slug</span>
-                  <span className="font-mono text-sm">{tool.slug}</span>
-                </div>
-                <div className="flex items-center gap-3">
-                  <span className="text-sm text-muted-foreground">ID</span>
-                  <span className="font-mono text-sm">{tool.id}</span>
-                </div>
-              </CardContent>
-            </Card>
+            <div className="mt-6">
+              <Suspense
+                fallback={
+                  <Card>
+                    <CardHeader>
+                      <CardTitle>Loading Tool...</CardTitle>
+                    </CardHeader>
+                    <CardContent>
+                      <div className="h-64 animate-pulse rounded-md bg-muted" />
+                    </CardContent>
+                  </Card>
+                }
+              >
+                <ToolComponent />
+              </Suspense>
+            </div>
           </div>
 
           {/* Sidebar: Related */}
