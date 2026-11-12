@@ -60,7 +60,7 @@ export function HashGenerator({ initialHash }: HashToolProps) {
   // Convert hashAlgorithms to Select items format
   const selectItems = hashAlgorithms.map((algo) => ({
     value: algo.algorithm,
-    label: `${algo.name} (${algo.algorithm})`,
+    label: `${algo.name}`,
   }))
 
   const generateHash = async (text: string, algorithm: string) => {
