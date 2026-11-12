@@ -44,6 +44,9 @@ const toolComponents: Record<string, ComponentType> = {
   "base64-tool": dynamic(() =>
     import("@/components/tools/base64-tool").then((mod) => mod.Base64Tool)
   ),
+  "hash-generator-tool": dynamic(() =>
+    import("@/components/tools/hash-generator-tool").then((mod) => mod.HashGenerator)
+  ),
 }
 
 export function generateStaticParams() {
@@ -94,7 +97,7 @@ export default async function ToolPage({
                 </div>
 
                 <div className="flex items-start">
-                  <div>
+                  <div className="w-full">
                     <div className="flex items-center gap-2">
                       <h1 className="text-2xl font-bold tracking-tight">
                         {tool.name}

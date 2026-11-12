@@ -40,7 +40,7 @@
 - [Textarea](https://ui.shadcn.com/docs/components/textarea): Multi-line text input component.
 - [Checkbox](https://ui.shadcn.com/docs/components/checkbox): Checkbox input component.
 - [Radio Group](https://ui.shadcn.com/docs/components/radio-group): Radio button group component.
-- [Select](https://ui.shadcn.com/docs/components/select): Select dropdown component.
+- [Select](https://ui.shadcn.com/docs/components/select): Select dropdown component. (Also available at `@/components/ui/select` in this project)
 - [Native Select](https://ui.shadcn.com/docs/components/native-select): Styled native HTML select element.
 - [Switch](https://ui.shadcn.com/docs/components/switch): Toggle switch component.
 - [Slider](https://ui.shadcn.com/docs/components/slider): Slider input component.

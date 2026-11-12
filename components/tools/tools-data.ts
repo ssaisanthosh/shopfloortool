@@ -16,8 +16,8 @@ export interface Category {
 }
 
 export const categories: Category[] = [
-  { name: "All", count: 8 },
-  { name: "Development", count: 3 },
+  { name: "All", count: 10 },
+  { name: "Development", count: 5 },
   { name: "Design", count: 2 },
   { name: "Productivity", count: 2 },
   { name: "Utilities", count: 1 },
@@ -107,6 +107,16 @@ export const tools: Tool[] = [
     category: "Development",
     icon: "Link",
     usedCount: 240,
+  },
+  {
+    id: "9",
+    slug: "hash-generator-tool",
+    name: "Hash Generator",
+    description: "Generate MD5, SHA-1, SHA-256, SHA-384, and SHA-512 hashes from text or files",
+    category: "Development",
+    icon: "Hash",
+    usedCount: 0,
+    new: true,
   },
 ];
 
