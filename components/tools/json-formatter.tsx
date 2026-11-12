@@ -1,15 +1,27 @@
-"use client";
+"use client"
 
-import { useState } from "react";
-import { Code } from "lucide-react";
-import { Card, CardHeader, CardContent, CardFooter } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
-import { cn } from "@/lib/utils";
-
+import { useState } from "react"
+import { Card, CardContent } from "@/components/ui/card"
+import { Textarea } from "@/components/ui/textarea"
+import { Button } from "../ui/button"
+import {
+  CircleX,
+  Clipboard,
+  Copy,
+  Download,
+  FileText,
+  GlobeBanIcon,
+  Trash,
+  Upload,
+} from "lucide-react"
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert"
+import { Badge } from "@/components/ui/badge"
+import { Info } from "lucide-react"
+import { Checkbox } from "@/components/ui/checkbox"
+import { Field, FieldGroup, FieldLabel } from "@/components/ui/field"
 interface JsonFormatterProps {
-  initialJson?: string;
-  onFormat?: (formattedJson: string) => void;
+  initialJson?: string
+  onFormat?: (formattedJson: string) => void
 }
 
 /**
@@ -17,105 +29,132 @@ interface JsonFormatterProps {
  * Provides a textarea for JSON input and displays formatted output
  */
 export function JsonFormatter({ initialJson }: JsonFormatterProps) {
-  const [jsonInput, setJsonInput] = useState(initialJson || "");
-  const [formattedJson, setFormattedJson] = useState<string | null>(null);
-  const [isValid, setIsValid] = useState<boolean | null>(null);
-  const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
+  const [jsonInput, setJsonInput] = useState(initialJson || "")
+  const [formattedJson, setFormattedJson] = useState<string | null>(null)
+  const [isValid, setIsValid] = useState<boolean | null>(null)
+  const [isLoading, setIsLoading] = useState(false)
+  const [error, setError] = useState<string | null>(null)
 
   const formatJson = () => {
-    setIsLoading(true);
-    setError(null);
+    setIsLoading(true)
+    setError(null)
 
     try {
-      const parsed = JSON.parse(jsonInput);
-      const formatted = JSON.stringify(parsed, null, 2);
-      setFormattedJson(formatted);
-      setIsValid(true);
+      const parsed = JSON.parse(jsonInput)
+      const formatted = JSON.stringify(parsed, null, 2)
+      setFormattedJson(formatted)
+      setIsValid(true)
     } catch (e) {
-      setIsValid(false);
-      setError("Invalid JSON. Please check the syntax and try again.");
-      setFormattedJson(null);
+      setIsValid(false)
+      setError("Invalid JSON. Please check the syntax and try again.")
+      setFormattedJson(null)
     } finally {
-      setIsLoading(false);
+      setIsLoading(false)
     }
-  };
+  }
 
   const copyToClipboard = () => {
-    if (!formattedJson) return;
+    if (!formattedJson) return
 
-    navigator.clipboard.writeText(formattedJson);
-  };
+    navigator.clipboard.writeText(formattedJson)
+  }
 
   return (
-    <Card className="w-full max-w-2xl">
-      <CardHeader className="pb-3">
-        <CardFooter className="flex items-center justify-between">
-          <div className="flex items-center gap-2">
-            <Code className="h-4 w-4 text-primary" />
-            <span className="text-sm font-medium">JSON Formatter</span>
-          </div>
-          <Badge variant="secondary" className="text-xs">
-            {isValid === true ? "Valid" : isValid === false ? "Invalid" : "Pending"}
-          </Badge>
-        </CardFooter>
-      </CardHeader>
-
+    <Card className="w-full">
       <CardContent>
-        {/* Input Section */}
-        <div className="mb-4">
-          <label className="block text-sm font-medium mb-2">
-            JSON Input
-          </label>
-          <textarea
-            value={jsonInput}
-            onChange={(e) => setJsonInput(e.target.value)}
-            placeholder="Paste JSON here..."
-            rows={6}
-            className="w-full rounded-md border border-border bg-background px-3 py-2 text-sm "
-          />
-        </div>
+        <div className="flex gap-4">
+          <div className="min-w-0 flex-1">
+            <div className="mt-5 mb-2">
+              <div className="mb-2 flex items-center gap-2">
+                <label className="block min-w-0 flex-1 text-sm font-medium">
+                  Text
+                </label>
+                <Button
+                  variant="outline"
+                  onClick={formatJson}
+                  disabled={isLoading}
+                >
+                  <Upload /> Upload
+                </Button>
 
-        {/* Buttons */}
-        <div className="flex gap-2 mb-4">
-          <Button onClick={formatJson} disabled={isLoading} className="flex-1">
-            {isLoading ? (
-              <>
-                <span className="align-middle" />
-                Formatting...
-              </>
-            ) : (
-              "Format JSON"
-            )}
-          </Button>
-          <Button onClick={copyToClipboard} disabled={!formattedJson} variant="outline" className="flex-1">
-            <Code className="h-4 w-4 mr-1" /> Copy
-          </Button>
-        </div>
-
-        {/* Validation Status */}
-        {isValid !== null && (
-          <div className="mb-4 p-3 rounded-md" style={{ background: isValid ? "var(--primary/10)" : "var(--destructive/10)" }}>
-            <p className="text-sm">
-              {isValid ? "✓" : "✗"} {isValid ? "Valid JSON" : "Invalid JSON format"}
-            </p>
+                <Button
+                  variant="outline"
+                  onClick={formatJson}
+                  disabled={isLoading}
+                >
+                  <FileText /> Sample
+                </Button>
+              </div>
+              <Textarea
+                className="h-80"
+                placeholder="Type your message here."
+              />
+              <div className="mt-2 flex gap-2">
+                <span className="text-xs text-muted-foreground">Size: 12B</span>
+              </div>
+            </div>
           </div>
-        )}
-
-        {/* Formatted Output */}
-        {formattedJson && (
-          <div className="mt-4 p-4 rounded-md border" style={{
-            borderColor: isValid ? "var(--primary)" : "var(--border)",
-            background: isValid ? "var(--primary/5)" : "var(--background)",
-          }}>
-            <pre className="self-select overflow-x-auto">
-              <code className="text-sm whitespace-pre-wrap text-muted-foreground">
-                {formattedJson}
-              </code>
-            </pre>
+          <div className="min-w-0 flex-1">
+            <div className="mt-5">
+              <div className="mb-2 flex items-center gap-2">
+                <label className="block min-w-0 flex-1 text-sm font-medium">
+                  Result
+                </label>
+                <Button
+                  variant="outline"
+                  onClick={formatJson}
+                  disabled={isLoading}
+                >
+                  <Download /> Download
+                </Button>
+                <Button
+                  variant="outline"
+                  onClick={formatJson}
+                  disabled={isLoading}
+                >
+                  <Copy /> Copy
+                </Button>
+              </div>
+              <Textarea readOnly className="h-80" />
+              <div className="mt-2 flex gap-2">
+                <span className="text-xs text-muted-foreground">Size: 12B</span>
+              </div>
+            </div>
           </div>
-        )}
+        </div>
+        <div className="flex w-full gap-2 pt-4">
+          <div className="">
+            {" "}
+            <Button
+              className="pt-3 pr-8 pb-3 pl-8 text-xs"
+              onClick={formatJson}
+              disabled={isLoading}
+            >
+              {isLoading ? "Encoding..." : "Encode"}
+            </Button>
+            <Button
+              className="ml-3 pt-3 pr-8 pb-3 pl-8 text-xs"
+              onClick={formatJson}
+              disabled={isLoading}
+            >
+              {isLoading ? "Decoding..." : "Decode"}
+            </Button>
+          </div>
+          <div className="mt-1">
+            <Field orientation="horizontal">
+              <Checkbox id="terms-checkbox-basic" name="terms-checkbox-basic" />
+              <FieldLabel htmlFor="terms-checkbox-basic">
+                URL Safe Base64 Encoding
+              </FieldLabel>
+            </Field>
+          </div>
+
+          <span className="ml-auto inline-flex items-center gap-1 rounded-full border border-red-500/30 bg-red-500/10 px-3 py-1 text-xs font-medium text-red-600">
+            <CircleX size={14} className="mr-1" /> browser-based
+          </span>
+          
+        </div>
       </CardContent>
     </Card>
-  );
+  )
 }

@@ -46,27 +46,25 @@ export function BookmarkButton({ toolId, className }: BookmarkButtonProps) {
 
   return (
     <Tooltip>
-      <TooltipTrigger>
-        <button
-          onClick={toggleBookmark}
-          className={cn(
-            "flex h-6 w-6 items-center justify-center rounded-sm transition-colors hover:bg-muted",
-            className
-          )}
-          aria-label={
-            isBookmarked ? "Remove from bookmarks" : "Add to bookmarks"
-          }
-          data-bookmarked={isBookmarked}
-        >
-          {isBookmarked ? (
-            <BookmarkCheck className="h-6 w-6 text-primary" strokeWidth={2} />
-          ) : (
-            <Bookmark
-              className="h-6 w-6 text-muted-foreground"
-              strokeWidth={1.5}
-            />
-          )}
-        </button>
+      <TooltipTrigger
+        onClick={toggleBookmark}
+        className={cn(
+          "flex h-6 w-6 items-center justify-center rounded-sm transition-colors hover:bg-muted",
+          className
+        )}
+        aria-label={
+          isBookmarked ? "Remove from bookmarks" : "Add to bookmarks"
+        }
+        data-bookmarked={isBookmarked}
+      >
+        {isBookmarked ? (
+          <BookmarkCheck className="h-6 w-6 text-primary" strokeWidth={2} />
+        ) : (
+          <Bookmark
+            className="h-6 w-6 text-muted-foreground"
+            strokeWidth={1.5}
+          />
+        )}
       </TooltipTrigger>
       <TooltipContent>
         <p>{isBookmarked ? "Remove from bookmarks" : "Add to bookmarks"}</p>

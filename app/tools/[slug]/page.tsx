@@ -3,10 +3,23 @@ import { getToolBySlug, tools } from "@/components/tools/tools-data"
 import { notFound } from "next/navigation"
 import { Badge } from "@/components/ui/badge"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { Settings, Activity, Palette, Layout, Shield } from "lucide-react"
+import {
+  Settings,
+  Activity,
+  Palette,
+  Layout,
+  Shield,
+  GlobeBanIcon,
+  Lock,
+} from "lucide-react"
 import { BookmarkButton } from "@/components/ui/bookmark-button"
 import dynamic from "next/dynamic"
 import { type ComponentType, Suspense } from "react"
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+} from "@/components/ui/tooltip"
 
 const categoryIcons: Record<
   string,
@@ -21,7 +34,9 @@ const categoryIcons: Record<
 
 // Map slugs to their respective dynamic components
 const toolComponents: Record<string, ComponentType> = {
-  "json-formatter": dynamic(() => import("@/components/tools/json-formatter").then((mod) => mod.JsonFormatter)),
+  "json-formatter": dynamic(() =>
+    import("@/components/tools/json-formatter").then((mod) => mod.JsonFormatter)
+  ),
 }
 
 export function generateStaticParams() {
@@ -76,7 +91,21 @@ export default async function ToolPage({
                     </p>
                   </div>
                   <div className="ml-auto flex items-center gap-2">
-                    <Badge variant="category">{tool.category}</Badge>
+                    <Tooltip>
+                      <TooltipTrigger>
+                        <span className=" inline-flex items-center gap-1 rounded-full border px-3 py-1 text-xs font-medium bg-green-500/10 text-green-600 border-green-500/30">
+                          <GlobeBanIcon size={14} className="mr-1" /> browser-based
+                        </span>
+                      </TooltipTrigger>
+                      <TooltipContent>
+                        <p>
+                          {" "}
+                          The tool is browser-based and does not save/send any
+                          data to server or cloud storage.
+                        </p>
+                      </TooltipContent>
+                    </Tooltip>
+
                     <BookmarkButton toolId={tool.id} className="" />
                   </div>
                 </div>
