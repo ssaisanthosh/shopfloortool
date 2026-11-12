@@ -50,17 +50,20 @@ export default async function ToolPage({
           <div className="lg:col-span-9">
             <div className="mb-8 flex flex-col gap-6 lg:flex-row">
               <div className="relative w-full">
-                <Badge variant="category">{tool.category}</Badge>
-                <Badge variant="category" className="absolute right-2">
-                  {tool.category} aa
-                </Badge>
-                <BookmarkButton toolId={tool.id} className="" />
-                <h1 className="mt-2 text-2xl font-bold tracking-tight">
-                  {tool.name}
-                </h1>
-                <p className="mt-1 w-full text-sm text-muted-foreground">
-                  {tool.description}
-                </p>
+                <div className="flex items-start">
+                  <div>
+                    <h1 className="text-2xl font-bold tracking-tight">
+                      {tool.name}
+                    </h1>
+                    <p className="mt-1 w-full text-sm text-muted-foreground">
+                      {tool.description}
+                    </p>
+                  </div>
+                  <div className="ml-auto flex items-center gap-2">
+                    <Badge variant="category">{tool.category}</Badge>
+                    <BookmarkButton toolId={tool.id} className="" />
+                  </div>
+                </div>
               </div>
             </div>
 
