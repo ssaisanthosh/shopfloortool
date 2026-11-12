@@ -3,18 +3,8 @@ import { getToolBySlug, tools } from "@/components/tools/tools-data"
 import { notFound } from "next/navigation"
 import { Badge } from "@/components/ui/badge"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import {
-  Settings,
-  Activity,
-  Palette,
-  Layout,
-  Shield,
-  Image,
-  Edit,
-  CheckSquare,
-  Link2,
-} from "lucide-react"
-import { use } from "react"
+import { Settings, Activity, Palette, Layout, Shield, Code } from "lucide-react"
+import { BookmarkButton } from "@/components/ui/bookmark-button"
 
 const categoryIcons: Record<
   string,
@@ -45,7 +35,7 @@ export default async function ToolPage({
 
   return (
     <div className="min-h-screen bg-background py-8">
-      <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         {/* Back link */}
         <Link
           href="/tools"
@@ -55,30 +45,24 @@ export default async function ToolPage({
           Back to all tools
         </Link>
 
-        <div className="grid grid-cols-1 gap-8 lg:grid-cols-3">
+        <div className="grid grid-cols-1 gap-8 lg:grid-cols-12">
           {/* Tool Detail */}
-          <div className="lg:col-span-2">
+          <div className="lg:col-span-9">
             <div className="mb-8 flex flex-col gap-6 lg:flex-row">
-              <div className="flex h-16 w-16 shrink-0 items-center justify-center rounded-xl bg-primary/10 text-primary">
-                <Icon className="h-6 w-6" />
-              </div>
-              <div>
+              <div className="relative w-full">
                 <Badge variant="category">{tool.category}</Badge>
-                <h1 className="mt-2 text-3xl font-bold tracking-tight">
+                <Badge variant="category" className="absolute right-2">
+                  {tool.category} aa
+                </Badge>
+                <BookmarkButton toolId={tool.id} className="" />
+                <h1 className="mt-2 text-2xl font-bold tracking-tight">
                   {tool.name}
                 </h1>
-                <Badge variant="count">{tool.usedCount} times used</Badge>
+                <p className="mt-1 w-full text-sm text-muted-foreground">
+                  {tool.description}
+                </p>
               </div>
             </div>
-
-            <Card>
-              <CardHeader>
-                <CardTitle>Description</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <p className="text-muted-foreground">{tool.description}</p>
-              </CardContent>
-            </Card>
 
             <Card className="mt-6">
               <CardHeader>
@@ -110,7 +94,7 @@ export default async function ToolPage({
           </div>
 
           {/* Sidebar: Related */}
-          <aside className="lg:col-span-1">
+          <aside className="lg:col-span-3">
             <div className="sticky top-24">
               <h2 className="mb-4 text-sm font-semibold tracking-wider text-muted-foreground uppercase">
                 Related Tools
