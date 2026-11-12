@@ -23,6 +23,7 @@ import {
   Ruler,
   Play,
   type LucideIcon,
+  LockKeyhole,
 } from "lucide-react"
 
 interface ToolCardProps {
@@ -40,6 +41,7 @@ const iconMap: Record<string, LucideIcon> = {
   Image,
   Link2,
   Ruler,
+  LockKeyhole,
 }
 
 export function ToolCard({ tool }: ToolCardProps) {
@@ -62,12 +64,14 @@ export function ToolCard({ tool }: ToolCardProps) {
         )}
 
         <CardHeader className="pt-6 pb-3">
-          <div className="mb-2 flex items-center justify-between">
+          <div className="mb-1 flex items-center justify-between">
             <div className="flex items-center gap-2">
               <div className="flex h-8 w-8 items-center justify-center rounded-md bg-primary/10 text-primary">
                 <IconComponent className="h-5 w-5" />
               </div>
-              <CardTitle className="text-base">{tool.name}</CardTitle>
+              <CardTitle className="line-clamp-1 text-base">
+                {tool.name}
+              </CardTitle>
             </div>
           </div>
           <div className="mb-2">

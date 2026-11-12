@@ -27,10 +27,10 @@ export const tools: Tool[] = [
   {
     id: "0",
     slug: "base64-tool",
-    name: "Base64",
+    name: "Base64 Encode/Decode Tool",
     description: "A Base64 encode/decode tool converts text or files into Base64 strings and back, instantly in your browser. It supports URL-safe mode, copy and download, and keeps your data private.",
     category: "Development",
-    icon: "Code",
+    icon: "LockKeyhole",
     usedCount: 1250,
     new: true,
   },{
