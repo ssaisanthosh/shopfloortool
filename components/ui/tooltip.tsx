@@ -2,7 +2,7 @@
 
 import { Tooltip as TooltipPrimitive } from "@base-ui/react/tooltip"
 import { cn } from "cn"
-import { type ComponentProps, type ReactNode } from "react"
+import { type ReactNode } from "react"
 
 interface TooltipProps extends TooltipPrimitive.Root.Props {
   children: ReactNode
@@ -51,7 +51,7 @@ function TooltipTrigger({
 }
 
 interface TooltipContentProps extends Omit<
-  TooltipPrimitive.Positioner.Props,
+  TooltipPrimitive.Popup.Props,
   "children"
 > {
   children: ReactNode
