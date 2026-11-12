@@ -191,7 +191,7 @@ export function Base64Tool({ initialJson }: Base64ToolProps) {
                 </Button>
               </div>
               <Textarea
-                className="h-80"
+                className="h-80 text-[12px] md:text-[12px]"
                 placeholder="Type your message here."
                 value={jsonInput}
                 onChange={(e) => setJsonInput(e.target.value)}
