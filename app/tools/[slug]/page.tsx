@@ -15,6 +15,7 @@ import {
   Share,
 } from "lucide-react"
 import { BookmarkButton } from "@/components/ui/bookmark-button"
+import { ShareButton } from "@/components/tools/share-button"
 import dynamic from "next/dynamic"
 import { type ComponentType, Suspense } from "react"
 import {
@@ -88,10 +89,7 @@ export default async function ToolPage({
                     Back to all tools
                   </Link>
                   {/* Back link */}
-                  <Button variant="outline" className="ml-auto">
-                    {" "}
-                    <Share></Share>Share
-                  </Button>
+                  <ShareButton  />
                   <BookmarkButton toolId={tool.id} className="" />
                 </div>
 
